@@ -1,0 +1,47 @@
+﻿@model List<Works>
+
+<h1>Work List</h1>
+<table class="table table-boarded table-striped">
+    <thead>
+        <tr>
+            <th>
+                Work ID
+            </th>
+            <th>
+                Assignee
+            </th>
+            <th>
+                Work Name
+            </th>
+            <th>
+                Work Creation Date
+            </th>
+            <th>
+                Work End Date
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var obj in Model)
+        {
+            <tr>
+                <td>
+                    @obj.WorkId
+                </td>
+                <td>
+                    @obj.Assignee
+                </td>
+                <td>
+                    @obj.WorkName
+                </td>
+                <td>
+                    @obj.WorkCreationDate
+                </td>
+                <td>
+                    @obj.WorkEndDate
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
