@@ -22,6 +22,7 @@ namespace EmployeeWorkTrace2.Controllers
             {
                 _db.Works.Add(obj);
                 _db.SaveChanges();
+                TempData["success"] = "Work Created Successfully!";
                 return RedirectToAction("Create");
             }
             else
