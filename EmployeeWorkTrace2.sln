@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeWorkTrace2", "EmployeeWorkTrace2\EmployeeWorkTrace2.csproj", "{1B7C578A-7DBE-4CF4-A5F4-4F3D488D512B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeWorkTrace2", "EmployeeWorkTrace2\EmployeeWorkTrace2.csproj", "{1B7C578A-7DBE-4CF4-A5F4-4F3D488D512B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeWorkTrace.DataAccess", "EmployeeWorkTrace.DataAccess\EmployeeWorkTrace.DataAccess.csproj", "{1C7B0047-6582-4F95-90BE-D30D21034E6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeWorkTrace.Models", "EmployeeWorkTrace.Models\EmployeeWorkTrace.Models.csproj", "{559CB11A-60DC-47DB-AA10-B528CEEA1EFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeWorkTrace.Utility", "EmployeeWorkTrace.Utility\EmployeeWorkTrace.Utility.csproj", "{1EBCCD0C-DAD9-4EFD-8B58-5A5A55B70C90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{1B7C578A-7DBE-4CF4-A5F4-4F3D488D512B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B7C578A-7DBE-4CF4-A5F4-4F3D488D512B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B7C578A-7DBE-4CF4-A5F4-4F3D488D512B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C7B0047-6582-4F95-90BE-D30D21034E6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C7B0047-6582-4F95-90BE-D30D21034E6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C7B0047-6582-4F95-90BE-D30D21034E6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C7B0047-6582-4F95-90BE-D30D21034E6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{559CB11A-60DC-47DB-AA10-B528CEEA1EFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{559CB11A-60DC-47DB-AA10-B528CEEA1EFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{559CB11A-60DC-47DB-AA10-B528CEEA1EFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{559CB11A-60DC-47DB-AA10-B528CEEA1EFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EBCCD0C-DAD9-4EFD-8B58-5A5A55B70C90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EBCCD0C-DAD9-4EFD-8B58-5A5A55B70C90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EBCCD0C-DAD9-4EFD-8B58-5A5A55B70C90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EBCCD0C-DAD9-4EFD-8B58-5A5A55B70C90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

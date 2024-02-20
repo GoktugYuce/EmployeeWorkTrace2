@@ -1,55 +1,66 @@
 ﻿@model List<Works>
 
-<h1>Work List</h1>
-<table class="table table-boarded table-striped">
-    <thead>
-        <tr>
-            <th>
-                Work ID
-            </th>
-            <th>
-                Work Name
-            </th>
-            <th>
-                Assignee
-            </th>
-            <th>
-                Work Creation Date
-            </th>
-            <th>
-                Work End Date
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var obj in Model)
-        {
-            <tr>
-                <td>
-                    @obj.WorkId
-                </td>
-                <td>
-                    @obj.WorkName
-                </td>
-                <td>
-                    @obj.Assignee
-                </td>
-                <td>
-                    @obj.WorkCreationDate
-                </td>
-                <td>
-                    @obj.WorkEndDate
-                </td>
-                <td>
-                    <div class="w-75 btn-group" role="group">
-                        <a asp-controller="Works" asp-action="View" asp-route-id="@obj.WorkId" class="btn btn-primary mx-2">
-                            <i class="bi bi-binoculars"></i> View
-                        </a> 
-                    </div>
-                </td>
-            </tr>
-        }
-    </tbody>
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Work List</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <table class="table table-boarded table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Work ID
+                    </th>
+                    <th>
+                        Work Name
+                    </th>
+                    <th>
+                        Assignee
+                    </th>
+                    <th>
+                        Work Creation Date
+                    </th>
+                    <th>
+                        Work End Date
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model)
+                {
+                    <tr>
+                        <td>
+                            @obj.WorkId
+                        </td>
+                        <td>
+                            @obj.WorkName
+                        </td>
+                        <td>
+                            @obj.Assignee
+                        </td>
+                        <td>
+                            @obj.WorkCreationDate
+                        </td>
+                        <td>
+                            @obj.WorkEndDate
+                        </td>
+                        <td>
+                            <div class="w-75 btn-group" role="group">
+                                <a asp-controller="Works" asp-action="View" asp-route-id="@obj.WorkId" class="btn btn-primary mx-2">
+                                    <i class="bi bi-binoculars"></i> View
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
 
-</table>
+        </table>
+    </div>
+</div>
+
