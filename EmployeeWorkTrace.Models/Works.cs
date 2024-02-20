@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace EmployeeWorkTrace2.Models
+namespace EmployeeWorkTrace.Models
 {
     public class Works
     {
@@ -13,7 +13,7 @@ namespace EmployeeWorkTrace2.Models
         public string WorkName { get; set; }
         public string Assignee { get; set; }
         public DateTime WorkCreationDate { get; set; }
-        public DateTime WorkEndDate { get; set;}
+        public DateTime WorkEndDate { get; set; }
 
         public Works()
         {

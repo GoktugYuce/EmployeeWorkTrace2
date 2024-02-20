@@ -1,4 +1,4 @@
-namespace EmployeeWorkTrace2.Models
+namespace EmployeeWorkTrace.Models
 {
     public class ErrorViewModel
     {
