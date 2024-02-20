@@ -1,4 +1,4 @@
-using EmployeeWorkTrace2.Data;
+using EmployeeWorkTrace.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 

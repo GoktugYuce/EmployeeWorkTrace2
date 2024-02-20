@@ -1,5 +1,5 @@
-using EmployeeWorkTrace2.Models;
-using EmployeeWorkTrace2.Data;
+using EmployeeWorkTrace.Models;
+using EmployeeWorkTrace.DataAccess.Data;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

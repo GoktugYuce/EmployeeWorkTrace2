@@ -1,5 +1,5 @@
-﻿using EmployeeWorkTrace2.Data;
-using EmployeeWorkTrace2.Models;
+﻿using EmployeeWorkTrace.DataAccess.Data;
+using EmployeeWorkTrace.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeWorkTrace2.Controllers

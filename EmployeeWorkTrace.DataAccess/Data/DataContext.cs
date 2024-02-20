@@ -1,7 +1,7 @@
-﻿using EmployeeWorkTrace2.Models;
+﻿using EmployeeWorkTrace.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmployeeWorkTrace2.Data
+namespace EmployeeWorkTrace.DataAccess.Data
 {
     public class DataContext: DbContext
     {
