@@ -1,15 +1,17 @@
 ﻿using EmployeeWorkTrace.DataAccess.Data;
+using EmployeeWorkTrace.DataAccess.Repository.IRepository;
 using EmployeeWorkTrace.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EmployeeWorkTrace2.Controllers
+namespace EmployeeWorkTrace2.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CreateWorkController : Controller
     {
-        public readonly DataContext _db;
-        public CreateWorkController(DataContext db)
+        public readonly IUnitOfWork _unitOfWork;
+        public CreateWorkController(IUnitOfWork unitOfWork)
         {
-            _db = db;
+            _unitOfWork = unitOfWork;
         }
         public IActionResult Create()
         {
@@ -18,10 +20,10 @@ namespace EmployeeWorkTrace2.Controllers
         [HttpPost]
         public IActionResult Create(Works obj)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                _db.Works.Add(obj);
-                _db.SaveChanges();
+                _unitOfWork.Works.Add(obj);
+                _unitOfWork.Save();
                 TempData["success"] = "Work Created Successfully!";
                 return RedirectToAction("Create");
             }
@@ -29,7 +31,7 @@ namespace EmployeeWorkTrace2.Controllers
             {
                 return View();
             }
-            
+
         }
     }
 }

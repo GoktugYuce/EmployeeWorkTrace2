@@ -1,30 +1,32 @@
 ﻿using EmployeeWorkTrace.DataAccess.Data;
+using EmployeeWorkTrace.DataAccess.Repository.IRepository;
 using EmployeeWorkTrace.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EmployeeWorkTrace2.Controllers
+namespace EmployeeWorkTrace2.Areas.Worker.Controllers
 {
+    [Area("Worker")]
     public class WorksController : Controller
     {
-        public readonly DataContext _db;
-        public WorksController(DataContext db) 
+        public readonly IUnitOfWork _unitOfWork;
+        public WorksController(IUnitOfWork unitOfWork)
         {
-            _db = db;
+            _unitOfWork = unitOfWork;
         }
         public IActionResult Works()
         {
-            List<Works> objCategoryList = _db.Works.ToList();
+            List<Works> objCategoryList = _unitOfWork.Works.GetAll().ToList();
             return View(objCategoryList);
         }
 
         public IActionResult View(int? id)
         {
-            if(id == null || id == 0)
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
-            Works worksFromDb = _db.Works.Find(id);
-            if(worksFromDb == null)
+            Works worksFromDb = _unitOfWork.Works.Get(u => u.WorkId == id);
+            if (worksFromDb == null)
             {
                 return NotFound();
             }
