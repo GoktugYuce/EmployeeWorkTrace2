@@ -3,8 +3,9 @@ using EmployeeWorkTrace.DataAccess.Data;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace EmployeeWorkTrace2.Controllers
+namespace EmployeeWorkTrace2.Areas.Worker.Controllers
 {
+    [Area("Worker")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
