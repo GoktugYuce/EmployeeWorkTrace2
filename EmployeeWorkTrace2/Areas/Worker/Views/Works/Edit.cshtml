@@ -4,15 +4,16 @@
     <div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
         <div class="row">
             <div class="col-12 text-center">
-                <h2 class="text-white py-2">Create Work</h2>
+                <h2 class="text-white py-2">Edit Work</h2>
             </div>
         </div>
     </div>
     <div class="card-body p-4">
-        <form method="post" asp-controller="CreateWork" asp-action="Create" class="row">
+        <form method="post" class="row">
             <div class="border p-3">
+                <input asp-for="Works.WorkId" hidden /> @* Hidden Field for WorkId *@
                 <div class="form-floating py-2 col-12">
-                    <input asp-for="Works.WorkName" class="form-control border-0 shadow"/>
+                    <input asp-for="Works.WorkName" class="form-control border-0 shadow" />
                     <label asp-for="Works.WorkName" class="ms-2">Work Name</label>
                     <span asp-validation-for="Works.WorkName" class="text-danger"></span>
                 </div>
@@ -28,24 +29,22 @@
                     <label asp-for="Works.WorkEndDate" class="ms-2">Planned End Date</label>
                     <span asp-validation-for="Works.WorkEndDate" class="text-danger"></span>
                 </div>
-                <div class="row">
-                    <div class="col-6 p-2">
-                        <button type="submit" class="btn btn-primary form-control">Create</button>
-                    </div>
-                    <div class="col-6 p-2">
-                        <a asp-area="Worker" asp-controller="Home" asp-action="Index" class="btn btn-outline-primary border form-control">Back To Home</a>
-                    </div>
+
+            </div>
+            <div class="row">
+                <div class="col-6 p-2">
+                    <button type="submit" class="btn btn-primary form-control">Update</button>
+                </div>
+                <div class="col-6 p-2">
+                    <a asp-controller="Works" asp-action="Works" class="btn btn-outline-primary border form-control">Back To Works</a>
                 </div>
             </div>
         </form>
     </div>
 </div>
 
-
-
-
-@section Scripts{
+@section Scripts {
     @{
-    <partial name="_ValidationScriptsPartial"/>
+        <partial name="_ValidationScriptsPartial" />
     }
 }
