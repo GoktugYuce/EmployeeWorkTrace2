@@ -9,6 +9,7 @@ namespace EmployeeWorkTrace.DataAccess.Repository.IRepository
     public interface IUnitOfWork
     {
         IWorksRepository Works { get; }
+        IWorkersRepository Workers { get; }
         void Save();
     }
 }

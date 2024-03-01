@@ -1,4 +1,4 @@
-﻿@model Works
+﻿@model WorksVM
 
 <div class="card shadow border-0 mt-4">
     <div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
@@ -9,22 +9,24 @@
         </div>
     </div>
     <div class="card-body p-4">
-        <form method="post" class="row">
+        <form method="post" asp-controller="CreateWork" asp-action="Create" class="row">
             <div class="border p-3">
-                <div classs="form-floating py-2 col-12">
-                    <input asp-for="WorkName" class="form-control border-0 shadow"/>
-                    <label asp-for="WorkName" class="ms-2">Work Name</label>
-                    <span asp-validation-for="WorkName" class="text-danger"></span>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="Works.WorkName" class="form-control border-0 shadow"/>
+                    <label asp-for="Works.WorkName" class="ms-2">Work Name</label>
+                    <span asp-validation-for="Works.WorkName" class="text-danger"></span>
                 </div>
-                <div classs="form-floating py-2 col-12">
-                    <input asp-for="Assignee" class="form-control border-0 shadow" />
-                    <label asp-for="Assignee" class="ms-2">Assignee</label>
-                    <span asp-validation-for="Assignee" class="text-danger"></span>
+                <div class="form-floating py-2 col-12">
+                    <select asp-for="Works.WorkerId" asp-items="@Model.WorkersList" class="form-select border-0 shadow">
+                        <option disabled selected>--Select Assignee--</option>
+                    </select>
+                    <label asp-for="Works.WorkerId" class="ms-2">Assignee</label>
+                    <span asp-validation-for="Works.WorkerId" class="text-danger"></span>
                 </div>
-                <div classs="form-floating py-2 col-12">
-                    <input asp-for="WorkEndDate" class="form-control border-0 shadow" />
-                    <label asp-for="WorkEndDate" class="ms-2">Planned End Date</label>
-                    <span asp-validation-for="WorkEndDate" class="text-danger"></span>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="Works.WorkEndDate" class="form-control border-0 shadow" />
+                    <label asp-for="Works.WorkEndDate" class="ms-2">Planned End Date</label>
+                    <span asp-validation-for="Works.WorkEndDate" class="text-danger"></span>
                 </div>
                 <div class="row">
                     <div class="col-6 p-2">
