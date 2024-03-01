@@ -10,10 +10,12 @@ namespace EmployeeWorkTrace.DataAccess.Data
 
         }
         public DbSet<Works> Works { get; set; }
+        public DbSet<Workers> Workers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
         }
     }
 }

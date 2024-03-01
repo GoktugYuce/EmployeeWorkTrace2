@@ -13,10 +13,12 @@ namespace EmployeeWorkTrace.DataAccess.Repository
 
         private DataContext _db;
         public IWorksRepository Works { get; private set; }
+        public IWorkersRepository Workers { get; private set; }
         public UnitOfWork(DataContext db)
         {
             _db = db;
             Works = new WorksRepository(_db); 
+            Workers = new WorkersRepository(_db);
         }
 
         public void Save()
