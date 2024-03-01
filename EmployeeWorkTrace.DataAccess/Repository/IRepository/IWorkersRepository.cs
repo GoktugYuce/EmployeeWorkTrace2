@@ -11,8 +11,6 @@ namespace EmployeeWorkTrace.DataAccess.Repository.IRepository
     public interface IWorkersRepository : IRepository<Workers>
     {
         void Update(Workers obj);
-        // Inside your IWorkersRepository interface
         Workers GetFirstOrDefault(Expression<Func<Workers, bool>> filter);
-
     }
 }

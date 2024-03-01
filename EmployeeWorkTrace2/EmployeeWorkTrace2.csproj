@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Admin\Views\Works\" />
     <Folder Include="Controllers\" />
   </ItemGroup>
 
