@@ -29,5 +29,6 @@ namespace EmployeeWorkTrace.Models
         [ForeignKey("WorkerId")]
         [ValidateNever]
         public Workers Workers { get; set; }
+        public ICollection<WorkItem> WorkItems { get; set; }
     }
 }

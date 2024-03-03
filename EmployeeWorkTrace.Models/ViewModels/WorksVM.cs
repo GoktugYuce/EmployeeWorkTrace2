@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,6 @@ namespace EmployeeWorkTrace.Models.ViewModels
         public Works Works { get; set; }
         [ValidateNever]
         public IEnumerable<SelectListItem> WorkersList { get; set; }
+        public IFormFile? File { get; set; }
     }
 }
