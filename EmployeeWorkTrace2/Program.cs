@@ -12,6 +12,10 @@ builder.Services.AddDbContext<DataContext>(x =>
                 x.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddSingleton<IWebHostEnvironment>(builder.Environment);
+
+
 
 var app = builder.Build();
 

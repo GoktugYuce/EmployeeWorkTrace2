@@ -1,6 +1,7 @@
 ﻿using EmployeeWorkTrace.DataAccess.Data;
 using EmployeeWorkTrace.DataAccess.Repository.IRepository;
 using EmployeeWorkTrace.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,20 @@ namespace EmployeeWorkTrace.DataAccess.Repository
             IQueryable<Works> query = _db.Works;
             query = query.Where(filter);
             return query.FirstOrDefault();
+        }
+
+        public IEnumerable<Works> GetAll(string includeProperties = null)
+        {
+            IQueryable<Works> query = _db.Works;
+
+            if (includeProperties != null)
+            {
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
+            return query.ToList();
         }
     }
 }

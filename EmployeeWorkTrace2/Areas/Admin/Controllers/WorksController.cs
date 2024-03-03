@@ -4,8 +4,9 @@ using EmployeeWorkTrace.Models;
 using EmployeeWorkTrace.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore; 
 
-namespace EmployeeWorkTrace2.Areas.Worker.Controllers
+namespace EmployeeWorkTrace2.Areas.Admin.Controllers
 {
     [Area("Worker")]
     public class WorksController : Controller
@@ -27,7 +28,11 @@ namespace EmployeeWorkTrace2.Areas.Worker.Controllers
             {
                 return NotFound();
             }
-            Works worksFromDb = _unitOfWork.Works.Get(u => u.WorkId == id);
+            Works worksFromDb = _unitOfWork.Works
+                                            .GetAll("WorkItems")
+                                            .FirstOrDefault(u => u.WorkId == id);
+
+
             if (worksFromDb == null)
             {
                 return NotFound();
@@ -59,7 +64,7 @@ namespace EmployeeWorkTrace2.Areas.Worker.Controllers
                 })
             };
 
-            return View(worksVM);
+            return View("~/Areas/Admin/Views/Works/Edit.cshtml", worksVM);
         }
 
         [HttpPost]

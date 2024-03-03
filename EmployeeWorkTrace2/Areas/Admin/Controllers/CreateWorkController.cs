@@ -2,6 +2,7 @@
 using EmployeeWorkTrace.DataAccess.Repository.IRepository;
 using EmployeeWorkTrace.Models;
 using EmployeeWorkTrace.Models.ViewModels;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -11,9 +12,11 @@ namespace EmployeeWorkTrace2.Areas.Admin.Controllers
     public class CreateWorkController : Controller
     {
         public readonly IUnitOfWork _unitOfWork;
-        public CreateWorkController(IUnitOfWork unitOfWork)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public CreateWorkController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
+            _webHostEnvironment = webHostEnvironment;
         }
         public IActionResult Create()
         {
@@ -35,6 +38,10 @@ namespace EmployeeWorkTrace2.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Create(WorksVM obj)
         {
+            foreach (var modelStateKey in ModelState.Keys.Where(k => k.StartsWith("Works.WorkItems")).ToList())
+            {
+                ModelState.Remove(modelStateKey);
+            }
             if (ModelState.IsValid)
             {
                 if (obj.Works.WorkerId > 0)
@@ -45,6 +52,25 @@ namespace EmployeeWorkTrace2.Areas.Admin.Controllers
                     {
                         obj.Works.WorkerName = worker.WorkerName;
                     }
+                }
+                if (obj.File != null)
+                {
+                    string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+                    string filePath = Path.Combine(uploadsFolder, obj.File.FileName);
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        obj.File.CopyTo(fileStream);
+                    }
+
+                    var workItem = new WorkItem()
+                    {
+                        ItemName = obj.File.FileName,
+                        CreationDate = DateTime.Now,
+                        Work = obj.Works
+                    };
+
+                    obj.Works.WorkItems = new List<WorkItem> { workItem };
                 }
 
                 _unitOfWork.Works.Add(obj.Works);

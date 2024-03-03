@@ -1,44 +1,45 @@
 ﻿@model Works
 
-<h1>@Model.WorkName</h1>
-<hr />
-<div class="row">
-    <div class="col-md-6">
-        <h2>Work Details</h2>
-        <dl class="row">
-            <dt class="col-sm-4">
-                @Html.DisplayNameFor(model => model.WorkId)
-            </dt>
-            <dd class="col-sm-8">
-                @Html.DisplayFor(model => model.WorkId)
-            </dd>
-            <dt class="col-sm-4">
-                @Html.DisplayNameFor(model => model.WorkName)
-            </dt>
-            <dd class="col-sm-8"> 
-                @Html.DisplayFor(model => model.WorkName)
-            </dd>
-            <dt class="col-sm-4">
-                @Html.DisplayNameFor(model => model.WorkerName)
-            </dt>
-            <dd class="col-sm-8">
-                @Html.DisplayFor(model => model.WorkerName)
-            </dd>
-            <dt class="col-sm-4">
-                @Html.DisplayNameFor(model => model.WorkCreationDate)
-            </dt>
-            <dd class="col-sm-8">
-                @Html.DisplayFor(model => model.WorkCreationDate)
-            </dd>
-            <dt class="col-sm-4">
-                @Html.DisplayNameFor(model => model.WorkEndDate)
-            </dt>
-            <dd class="col-sm-8">
-                @Html.DisplayFor(model => model.WorkEndDate)
-            </dd>
-        </dl>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h1 class="display-4">@Model.WorkName</h1>
+            <p><strong>Worker:</strong> @Model.WorkerName</p>
+
+            <hr />
+
+            @if (Model.WorkItems != null && Model.WorkItems.Any())
+            {
+                <div class="mb-3">
+                    <h2>Uploaded Files</h2>
+                    @foreach (var item in Model.WorkItems)
+                    {
+                        <div class="mb-2">
+                            <a href="/Uploads/@item.ItemName" target="_blank">
+                                @item.ItemName (@item.CreationDate)
+                            </a>
+                        </div>
+                    }
+                </div>
+            }
+
+            <h3 class="mt-4">Work Details</h3>
+            <dl class="row">
+                <dt class="col-sm-4">Work ID</dt>
+                <dd class="col-sm-8">@Model.WorkId</dd>
+                <dt class="col-sm-4">Created On</dt>
+                <dd class="col-sm-8">@Model.WorkCreationDate.Value.ToShortDateString()</dd>
+                <dt class="col-sm-4">Planned End Date</dt>
+                <dd class="col-sm-8">@Model.WorkEndDate.Value.ToShortDateString()</dd>
+
+
+            </dl>
+
+            </div>
+        </div>
     </div>
-</div>
-<div>
-    <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary border">Back To Home</a>
+
+    <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary mt-3">
+         Back To Home
+    </a>
 </div>
