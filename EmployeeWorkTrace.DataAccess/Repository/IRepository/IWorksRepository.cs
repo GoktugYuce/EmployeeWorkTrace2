@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,7 +13,7 @@ namespace EmployeeWorkTrace.DataAccess.Repository.IRepository
     {
         void Update(Works obj);
 
-        Works GetFirstOrDefault(Expression<Func<Works, bool>> filter);
+        Works GetFirstOrDefault(Expression<Func<Works, bool>> filter, String includeProperties);
         IEnumerable<Works> GetAll(string includeProperties = null);
     }
 }

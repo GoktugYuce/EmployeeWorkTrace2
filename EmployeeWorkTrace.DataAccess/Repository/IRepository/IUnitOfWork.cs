@@ -13,3 +13,5 @@ namespace EmployeeWorkTrace.DataAccess.Repository.IRepository
         void Save();
     }
 }
+
+
