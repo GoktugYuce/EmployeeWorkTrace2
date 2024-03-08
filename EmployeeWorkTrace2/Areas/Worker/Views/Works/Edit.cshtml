@@ -9,7 +9,7 @@
         </div>
     </div>
     <div class="card-body p-4">
-        <form method="post" class="row">
+        <form method="post" class="row" enctype="multipart/form-data">
             <div class="border p-3">
                 <input asp-for="Works.WorkId" hidden /> @* Hidden Field for WorkId *@
                 <div class="form-floating py-2 col-12">
@@ -29,6 +29,29 @@
                     <label asp-for="Works.WorkEndDate" class="ms-2">Planned End Date</label>
                     <span asp-validation-for="Works.WorkEndDate" class="text-danger"></span>
                 </div>
+                <div class="border p-3">
+                    <h4>Work Items</h4>
+                    <div id="workItemsContainer">
+                        @if (Model.WorkItems != null && Model.WorkItems.Any())
+                        {
+                            @for (int i = 0; i < Model.WorkItems.Count(); i++) // Use Count() method here
+                            {
+                                <div class="form-floating py-2 col-12">
+                                    <input type="hidden" asp-for="@Model.WorkItems.ElementAt(i).WorkItemId" />
+                                    <input type="hidden" asp-for="@Model.WorkItems.ElementAt(i).ItemName" />
+                                    <input type="file" asp-for="File" class="form-control border-0 shadow" />
+                                    <label asp-for="File" class="ms-2">Upload File</label>
+                                    <a href="#" class="btn btn-danger btn-sm btn-remove-item">Delete</a>
+                                </div>
+                            }
+                        }
+                    </div>
+
+
+
+                    <button type="button" id="addItemBtn" class="btn btn-primary">Add Item</button>
+                </div>
+
 
             </div>
             <div class="row">
@@ -47,4 +70,26 @@
     @{
         <partial name="_ValidationScriptsPartial" />
     }
+    <script>
+        $(document).ready(function () {
+            let itemIndex = @Model.WorkItems?.Count() ?? 0;
+
+            $("#addItemBtn").click(function () {
+                $("#workItemsContainer").append(`
+                    <div class="form-floating py-2 col-12">
+                        <input type="file" name="Works.WorkItems[${itemIndex}].File" class="form-control border-0 shadow" />
+                        <label class="ms-2">Upload File</label>
+                        <a href="#" class="btn btn-danger btn-sm btn-remove-item">Delete</a>
+                    </div>
+                `);
+                itemIndex++;
+            });
+
+            $(document).on("click", ".btn-remove-item", function (e) {
+                e.preventDefault();
+                $(this).closest(".form-floating").remove();
+            });
+        });
+
+    </script>
 }

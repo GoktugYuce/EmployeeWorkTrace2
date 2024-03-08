@@ -2,19 +2,22 @@
 using EmployeeWorkTrace.DataAccess.Repository.IRepository;
 using EmployeeWorkTrace.Models;
 using EmployeeWorkTrace.Models.ViewModels;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore; 
+using Microsoft.EntityFrameworkCore;
 
-namespace EmployeeWorkTrace2.Areas.Admin.Controllers
+namespace EmployeeWorkTrace2.Areas.Worker.Controllers
 {
     [Area("Worker")]
     public class WorksController : Controller
     {
         public readonly IUnitOfWork _unitOfWork;
-        public WorksController(IUnitOfWork unitOfWork)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public WorksController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
+            _webHostEnvironment = webHostEnvironment;
         }
         public IActionResult Works()
         {
@@ -48,12 +51,15 @@ namespace EmployeeWorkTrace2.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var workFromDb = _unitOfWork.Works.GetFirstOrDefault(u => u.WorkId == id);
+            // Fetch the Work and include WorkItems
+            var workFromDb = _unitOfWork.Works.GetFirstOrDefault(u => u.WorkId == id, includeProperties: "WorkItems");
+
             if (workFromDb == null)
             {
                 return NotFound();
             }
 
+            // Create the WorksVM
             WorksVM worksVM = new()
             {
                 Works = workFromDb,
@@ -61,11 +67,13 @@ namespace EmployeeWorkTrace2.Areas.Admin.Controllers
                 {
                     Text = i.WorkerName,
                     Value = i.WorkerId.ToString()
-                })
+                }),
+                WorkItems = workFromDb.WorkItems ?? new List<WorkItem>() // Initialize WorkItems
             };
 
-            return View("~/Areas/Admin/Views/Works/Edit.cshtml", worksVM);
+            return View("~/Areas/Worker/Views/Works/Edit.cshtml", worksVM);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -82,6 +90,36 @@ namespace EmployeeWorkTrace2.Areas.Admin.Controllers
                         obj.Works.WorkerName = worker.WorkerName;
                     }
                 }
+
+                if (Request.Form.Files.Any())
+                {
+                    var workItems = new List<WorkItem>();
+                    for (int i = 0; i < Request.Form.Files.Count; i++)
+                    {
+                        var file = Request.Form.Files[i];
+                        if (file.Name.Contains("Works.WorkItems"))
+                        {
+                            string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+                            string filePath = Path.Combine(uploadsFolder, file.FileName);
+
+                            using (var fileStream = new FileStream(filePath, FileMode.Create))
+                            {
+                                file.CopyTo(fileStream);
+                            }
+
+                            // ... (Set other WorkItem properties, potentially from form fields) ...
+
+                            workItems.Add(new WorkItem
+                            {
+                                ItemName = file.FileName, // Or extract from form if needed
+                                CreationDate = DateTime.Now,
+                                Work = obj.Works // Associate the WorkItem with the Work
+                            });
+                        }
+                    }
+                    obj.Works.WorkItems = workItems; // Add to ViewModel
+                }
+
                 _unitOfWork.Works.Update(obj.Works);
                 _unitOfWork.Save();
                 TempData["success"] = "Work Updated Successfully!";

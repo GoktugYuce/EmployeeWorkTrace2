@@ -24,7 +24,7 @@ namespace EmployeeWorkTrace.DataAccess.Repository
             _db.Works.Update(obj);
         }
 
-        public Works GetFirstOrDefault(Expression<Func<Works, bool>> filter)
+        public Works GetFirstOrDefault(Expression<Func<Works, bool>> filter, String includeProperties)
         {
             IQueryable<Works> query = _db.Works;
             query = query.Where(filter);

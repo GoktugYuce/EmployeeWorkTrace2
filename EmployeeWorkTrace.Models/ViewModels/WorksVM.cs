@@ -15,5 +15,6 @@ namespace EmployeeWorkTrace.Models.ViewModels
         [ValidateNever]
         public IEnumerable<SelectListItem> WorkersList { get; set; }
         public IFormFile? File { get; set; }
+        public IEnumerable<WorkItem>? WorkItems { get; set; }
     }
 }
