@@ -128,5 +128,25 @@ namespace EmployeeWorkTrace2.Areas.Worker.Controllers
             return View(obj);
         }
 
+        [HttpPost]
+        public IActionResult UpdateWorkState(int workId, string newState)
+        {
+            var work = _unitOfWork.Works.GetFirstOrDefault(w => w.WorkId == workId);
+            if (work == null)
+            {
+                return NotFound();
+            }
+            // Update the WorkState (Parse newState from string)
+            if (!Enum.TryParse(newState, out WorkState workStateValue))
+            {
+                return BadRequest("Invalid work state provided."); // Handle invalid input
+            }
+            work.WorkState = workStateValue;
+            _unitOfWork.Works.Update(work);
+            _unitOfWork.Save();
+
+            return Ok();
+        }
+
     }
 }

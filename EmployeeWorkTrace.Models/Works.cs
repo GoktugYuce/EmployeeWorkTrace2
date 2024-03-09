@@ -5,6 +5,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EmployeeWorkTrace.Models
 {
+    public enum WorkState
+    {
+        //[Display(Name = "Start Work")]
+        StartWork,
+
+        //[Display(Name = "Under Development")]
+        UnderDevelopment,
+
+        //[Display(Name = "Code Review")]
+        CodeReview,
+
+        Completed
+    }
     public class Works
     {
         [Key]
@@ -31,5 +44,6 @@ namespace EmployeeWorkTrace.Models
         [ValidateNever]
         public Workers Workers { get; set; }
         public ICollection<WorkItem> WorkItems { get; set; }
+        public WorkState WorkState { get; set; } = WorkState.StartWork; // Default to 'StartWork'
     }
 }

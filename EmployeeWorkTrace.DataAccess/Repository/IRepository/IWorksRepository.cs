@@ -13,7 +13,7 @@ namespace EmployeeWorkTrace.DataAccess.Repository.IRepository
     {
         void Update(Works obj);
 
-        Works GetFirstOrDefault(Expression<Func<Works, bool>> filter, String includeProperties);
+        Works GetFirstOrDefault(Expression<Func<Works, bool>> filter, String? includeProperties = null);
         IEnumerable<Works> GetAll(string includeProperties = null);
     }
 }

@@ -1,5 +1,9 @@
-﻿@model Works
+﻿@{
+    Layout = "_Layout";  // Tell your view to use _Layout.cshtml
+    ViewData["Title"] = "My Work View"; // Optionally set a page title
+}
 
+@model Works
 <div class="container">
     <div class="row">
         <div class="col-md-8">
@@ -33,8 +37,13 @@
                 <dd class="col-sm-8">@Model.WorkEndDate.Value.ToShortDateString()</dd>
                 <dt class="col-sm-4">Description</dt>
                 <dd class="col-sm-8">@Html.Raw(Model.Description)</dd>
-
-
+                <div id="workStateContainer">
+                    <span class="work-state-text">Work State: </span>
+                    <dd class="col-sm-8">
+                        <button id="workStateButton" class="work-state-button">@Model.WorkState</button>
+                        <script src="~/js/site.js" defer></script>
+                    </dd>
+                </div>              
             </dl>
         </div>
     </div>
@@ -44,3 +53,45 @@
          Back To Works
     </a>
 </div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#workStateButton').click(function () {
+                let currentState = $(this).text();
+                let workId = @Model.WorkId; // Retrieve the Work ID
+
+                // Determine the next state (Example cyclical progression)
+                let newState = determineNextState(currentState);
+
+                // AJAX Call to update the state in the backend
+                $.ajax({
+                    url: '/Worker/Works/UpdateWorkState', // Create UpdateWorkState action in your controller
+                    type: 'POST',
+                    data: { workId: workId, newState: newState },
+                    success: function () {
+                        $('#workStateButton').text(newState); // Update the button text
+                        // Remove all existing state classes:
+                        $('#workStateButton').removeClass('startwork underdevelopment codereview completed');
+
+                        // Add the new state class:
+                        $('#workStateButton').addClass(newState.replace(' ', '-').toLowerCase());
+                    },
+                    error: function () {
+                        alert('An error occurred updating the state.');
+                    }
+                });
+            });
+
+            // Simple function to cycle through work states
+            function determineNextState(currentState) {
+                switch (currentState) {
+                    case 'StartWork': return 'UnderDevelopment';
+                    case 'UnderDevelopment': return 'CodeReview';
+                    case 'CodeReview': return 'Completed';
+                    case 'Completed': return 'StartWork'; // Reset
+                    default: return 'StartWork';
+                }
+            }
+        });
+    </script>
+}
