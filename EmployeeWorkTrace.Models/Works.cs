@@ -24,6 +24,7 @@ namespace EmployeeWorkTrace.Models
         {
             WorkCreationDate = DateTime.Now;
         }
+        public string? Description { get; set; }
 
         public int WorkerId { get; set; }
         [ForeignKey("WorkerId")]
