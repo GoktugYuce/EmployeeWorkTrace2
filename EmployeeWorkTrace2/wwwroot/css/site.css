@@ -512,26 +512,66 @@ bg-success {
 
 
 
-    .btn-check:checked + .btn-success,
-    .btn-check:active + .btn-success, .btn-success:active, .btn-success.active,
-    .show > .btn-success.dropdown-toggle {
-        color: #fff;
-        background-color: #578553;
-        border-color: #578553;
-    }
+.btn-check:checked + .btn-success,
+.btn-check:active + .btn-success, .btn-success:active, .btn-success.active,
+.show > .btn-success.dropdown-toggle {
+    color: #fff;
+    background-color: #578553;
+    border-color: #578553;
+}
 
 
 
-        .btn-check:checked + .btn-success:focus,
-        .btn-check:active + .btn-success:focus, .btn-success:active:focus, .btn-success.active:focus,
-        .show > .btn-success.dropdown-toggle:focus {
-            box-shadow: 0 0 0 0.25rem rgba(60, 60, 60, 0.5);
-        }
+.btn-check:checked + .btn-success:focus,
+.btn-check:active + .btn-success:focus, .btn-success:active:focus, .btn-success.active:focus,
+.show > .btn-success.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.25rem rgba(60, 60, 60, 0.5);
+}
 
 
 
-    .btn-success:disabled, .btn-success.disabled {
-        color: #fff;
-        background-color: #578553;
-        border-color: #578553;
-    }
+.btn-success:disabled, .btn-success.disabled {
+    color: #fff;
+    background-color: #578553;
+    border-color: #578553;
+}
+
+/* General work state button styles (optional) */
+.work-state-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 200px;
+}
+
+/* State-specific styles */
+.work-state-button.startwork {
+    background-color: darkblue;
+    color: white;
+}
+
+.work-state-button.underdevelopment {
+    background-color: red;
+    color: white;
+}
+
+.work-state-button.codereview {
+    background-color: yellow;
+    color: black; 
+}
+
+.work-state-button.completed {
+    background-color: green;
+    color: white; 
+}
+#workStateContainer {
+    position: fixed;
+    top: 130px;
+    right: -1400px;
+
+}
+.work-state-text {
+    display: inline-block;
+    margin-right: 5px;
+}
