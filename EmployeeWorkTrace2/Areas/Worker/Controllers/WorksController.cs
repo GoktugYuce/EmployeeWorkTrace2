@@ -21,8 +21,8 @@ namespace EmployeeWorkTrace2.Areas.Worker.Controllers
         }
         public IActionResult Works()
         {
-            List<Works> objCategoryList = _unitOfWork.Works.GetAll().ToList();
-            return View(objCategoryList);
+            List<Works> objWorksList = _unitOfWork.Works.GetAll().ToList();
+            return View(objWorksList);
         }
 
         public IActionResult View(int? id)
@@ -146,6 +146,13 @@ namespace EmployeeWorkTrace2.Areas.Worker.Controllers
             _unitOfWork.Save();
 
             return Ok();
+        }
+
+        [HttpGet]
+        public IActionResult GetAll() 
+        {
+            List<Works> objWorksList = _unitOfWork.Works.GetAll().ToList();
+            return Json(new { data = objWorksList });
         }
 
     }

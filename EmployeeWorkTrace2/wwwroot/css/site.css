@@ -575,3 +575,22 @@ bg-success {
     display: inline-block;
     margin-right: 5px;
 }
+
+.btn-primary, .btn-warning {
+    /* ...other styles ... */
+    padding: 0.3rem 1.5rem;
+    border-radius: 0.4rem;
+    display: flex;
+    align-items: center;
+}
+.btn-primary i, .btn-warning i { 
+    margin-right: 5px;
+}
+body { /* Target the body to apply the wallpaper */
+    background-image: url('/images/works wallpaper 2.jpg'); /* Adjust the path if needed */
+    background-size: cover; /* Scale the image to cover the entire background */
+    background-repeat: no-repeat; /* Prevent the image from tiling */
+    background-attachment: fixed; /* Keep the wallpaper fixed even when scrolling */
+}
+
+
