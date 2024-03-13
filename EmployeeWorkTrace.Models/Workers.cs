@@ -15,6 +15,7 @@ namespace EmployeeWorkTrace.Models
         public int WorkerPassword { get; set; }
         public DateTime? CreateDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
+        public string? Title { get; set; }
 
     }
 }
