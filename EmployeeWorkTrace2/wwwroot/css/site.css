@@ -567,8 +567,8 @@ bg-success {
 }
 #workStateContainer {
     position: fixed;
-    top: 130px;
-    right: -1400px;
+    top: 290px;
+    right: -1350px;
 
 }
 .work-state-text {
@@ -592,5 +592,27 @@ body { /* Target the body to apply the wallpaper */
     background-repeat: no-repeat; /* Prevent the image from tiling */
     background-attachment: fixed; /* Keep the wallpaper fixed even when scrolling */
 }
+
+.teammates-table {
+    margin-bottom: 20px;
+    border-radius: 50px;
+}
+
+.teammates-heading,
+.welcome-title {
+    font-weight: bold;
+    color: white;
+}
+
+.welcome-title{
+    font-size: 3em;
+
+}
+
+.table able-striped, table-bordered, teammates-table {
+    border-radius: 10px;
+}
+
+
 
 
