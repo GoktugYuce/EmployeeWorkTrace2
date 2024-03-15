@@ -31,10 +31,14 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="Worker" asp-controller="Works" asp-action="Works">Works</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="Admin" asp-controller="CreateWork" asp-action="Create">Create Work</a>
-                        </li>
+                        @if (User.IsInRole(SD.Role_Admin))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Admin" asp-controller="CreateWork" asp-action="Create">Create Work</a>
+                            </li>
+                        }
                     </ul>
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
