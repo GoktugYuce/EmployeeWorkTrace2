@@ -7,6 +7,15 @@ a.navbar-brand {
     word-break: break-all;
 }
 
+.divider-text:before,
+.divider-text:after {
+    color: white;
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #555;
+    margin: auto 0.25rem;
+    box-shadow: 0 -2px;
+}
 
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
@@ -586,12 +595,12 @@ bg-success {
 .btn-primary i, .btn-warning i { 
     margin-right: 5px;
 }
-body { /* Target the body to apply the wallpaper */
-    background-image: url('/images/works wallpaper 2.jpg'); /* Adjust the path if needed */
-    background-size: cover; /* Scale the image to cover the entire background */
-    background-repeat: no-repeat; /* Prevent the image from tiling */
-    background-attachment: fixed; /* Keep the wallpaper fixed even when scrolling */
-}
+/*body {*/ /* Target the body to apply the wallpaper */
+    /*background-image: url('/images/works wallpaper 2.jpg');*/ /* Adjust the path if needed */
+    /*background-size: cover;*/ /* Scale the image to cover the entire background */
+    /*background-repeat: no-repeat;*/ /* Prevent the image from tiling */
+    /*background-attachment: fixed;*/ /* Keep the wallpaper fixed even when scrolling */
+/*}*/
 
 .teammates-table {
     margin-bottom: 20px;
@@ -601,7 +610,7 @@ body { /* Target the body to apply the wallpaper */
 .teammates-heading,
 .welcome-title {
     font-weight: bold;
-    color: white;
+    color: black;
 }
 
 .welcome-title{

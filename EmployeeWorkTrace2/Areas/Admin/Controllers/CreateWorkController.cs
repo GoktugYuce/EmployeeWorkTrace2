@@ -2,6 +2,8 @@
 using EmployeeWorkTrace.DataAccess.Repository.IRepository;
 using EmployeeWorkTrace.Models;
 using EmployeeWorkTrace.Models.ViewModels;
+using EmployeeWorkTrace.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace EmployeeWorkTrace2.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class CreateWorkController : Controller
     {
         public readonly IUnitOfWork _unitOfWork;

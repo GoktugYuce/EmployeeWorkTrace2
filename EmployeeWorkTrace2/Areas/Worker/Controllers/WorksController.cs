@@ -2,6 +2,8 @@
 using EmployeeWorkTrace.DataAccess.Repository.IRepository;
 using EmployeeWorkTrace.Models;
 using EmployeeWorkTrace.Models.ViewModels;
+using EmployeeWorkTrace.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -44,6 +46,7 @@ namespace EmployeeWorkTrace2.Areas.Worker.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = SD.Role_Admin)]
         public IActionResult Edit(int? id)
         {
             if (id == null || id == 0)
@@ -77,6 +80,7 @@ namespace EmployeeWorkTrace2.Areas.Worker.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = SD.Role_Admin)]
         public IActionResult Edit(WorksVM obj)
         {
             if (ModelState.IsValid)
