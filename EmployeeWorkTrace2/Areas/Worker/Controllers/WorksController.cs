@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace EmployeeWorkTrace2.Areas.Worker.Controllers
 {
     [Area("Worker")]
+    [Authorize]
     public class WorksController : Controller
     {
         public readonly IUnitOfWork _unitOfWork;

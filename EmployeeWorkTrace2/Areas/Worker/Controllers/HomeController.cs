@@ -3,10 +3,12 @@ using EmployeeWorkTrace.DataAccess.Data;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using EmployeeWorkTrace.DataAccess.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeWorkTrace2.Areas.Worker.Controllers
 {
     [Area("Worker")]
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
