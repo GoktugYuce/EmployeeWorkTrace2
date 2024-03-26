@@ -10,6 +10,8 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using EmployeeWorkTrace.DataAccess.Data;
+using EmployeeWorkTrace.Models;
 using EmployeeWorkTrace.Utility;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -20,7 +22,9 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 
 namespace EmployeeWorkTrace2.Areas.Identity.Pages.Account
 {
@@ -33,6 +37,7 @@ namespace EmployeeWorkTrace2.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly DataContext _db;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -40,7 +45,8 @@ namespace EmployeeWorkTrace2.Areas.Identity.Pages.Account
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            DataContext db)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -49,6 +55,7 @@ namespace EmployeeWorkTrace2.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _db = db;
         }
 
         /// <summary>
@@ -108,6 +115,13 @@ namespace EmployeeWorkTrace2.Areas.Identity.Pages.Account
             [ValidateNever]
             public IEnumerable<SelectListItem> RoleList { get; set; }
 
+            [Required]
+            [Display(Name = "User Name")]
+            public string Name { get; set; }
+            public string? Title { get; set; }
+            [ValidateNever]
+            public IEnumerable<SelectListItem> TitleList { get; set; }
+
         }
 
 
@@ -125,6 +139,11 @@ namespace EmployeeWorkTrace2.Areas.Identity.Pages.Account
                 {
                     Text = i,
                     Value = i
+                }),
+                TitleList = Title.GetTitles().Select(i => new SelectListItem
+                {
+                    Text = i,
+                    Value = i
                 })
             };
             ReturnUrl = returnUrl;
@@ -139,8 +158,9 @@ namespace EmployeeWorkTrace2.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                await _userStore.SetUserNameAsync(user, Input.Name, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                user.Name = Input.Name;
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
@@ -166,7 +186,31 @@ namespace EmployeeWorkTrace2.Areas.Identity.Pages.Account
 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
+                    if(Input.Role == SD.Role_Worker)
+                    {
+                        var worker = new Workers
+                        {
+                            WorkerName = Input.Name,
+                            Title = Input.Title,
+                            CreateDate = DateTime.Now,
+                            ModifiedDate = DateTime.Now,
+                            UserId = user.Id
+                        };
+                        _db.Workers.Add(worker);
+                    }
+                    else if(Input.Role == SD.Role_Admin)
+                    {
+                        var admin = new Admins
+                        {
+                            AdminName = Input.Name,
+                            Title = Input.Title,
+                            CreateDate = DateTime.Now,
+                            ModifiedDate = DateTime.Now,
+                            UserId = user.Id
+                        };
+                        _db.Admins.Add(admin);
+                    }
+                    await _db.SaveChangesAsync();
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
@@ -187,11 +231,11 @@ namespace EmployeeWorkTrace2.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private IdentityUser CreateUser()
+        private ApplicationUser CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<IdentityUser>();
+                return Activator.CreateInstance<ApplicationUser>();
             }
             catch
             {
