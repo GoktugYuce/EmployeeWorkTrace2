@@ -18,11 +18,11 @@
                     <span asp-validation-for="Works.WorkName" class="text-danger"></span>
                 </div>
                 <div class="form-floating py-2 col-12">
-                    <select asp-for="Works.WorkerId" asp-items="@Model.WorkersList" class="form-select border-0 shadow">
+                    <select asp-for="Works.UserId" asp-items="@Model.WorkersList" class="form-select border-0 shadow">
                         <option disabled selected>--Select Assignee--</option>
                     </select>
-                    <label asp-for="Works.WorkerId" class="ms-2">Assignee</label>
-                    <span asp-validation-for="Works.WorkerId" class="text-danger"></span>
+                    <label asp-for="Works.UserId" class="ms-2">Assignee</label>
+                    <span asp-validation-for="Works.UserId" class="text-danger"></span>
                 </div>
                 <div class="form-floating py-2 col-12">
                     <input asp-for="Works.WorkEndDate" class="form-control border-0 shadow" />

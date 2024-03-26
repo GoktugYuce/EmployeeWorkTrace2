@@ -16,7 +16,12 @@
                 <form id="registerForm" class="row" asp-route-returnUrl="@Model.ReturnUrl" method="post">
                     <h3 class="border-bottom pb-3 mb-4 text-secondary text-center">Create a new account.</h3>
                     <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                    <div class="form-floating mb-3 col-12">
+                    <div class="form-floating mb-3 col-md-6">
+                        <input asp-for="Input.Name" class="form-control" autocomplete="username" aria-required="true" placeholder="name" />
+                        <label asp-for="Input.Name" class="ms-2 text-muted">Name</label>
+                        <span asp-validation-for="Input.Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3 col-md-6">
                         <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
                         <label asp-for="Input.Email" class="ms-2 text-muted">Email</label>
                         <span asp-validation-for="Input.Email" class="text-danger"></span>
@@ -34,6 +39,11 @@
                     <div class="form-floating col-md-6">
                         <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-select">
                             <option disabled selected>-Select Role-</option>
+                        </select>
+                    </div>
+                    <div class="form-floating col-md-6">
+                        <select asp-for="Input.Title" asp-items="@Model.Input.TitleList" class="form-select">
+                            <option disabled selected>-Select Title-</option>
                         </select>
                     </div>
                     <div class="col-12 pt-3">

@@ -70,7 +70,7 @@ namespace EmployeeWorkTrace2.Areas.Worker.Controllers
                 WorkersList = _unitOfWork.Workers.GetAll().Select(i => new SelectListItem
                 {
                     Text = i.WorkerName,
-                    Value = i.WorkerId.ToString()
+                    Value = i.UserId.ToString()
                 }),
                 WorkItems = workFromDb.WorkItems ?? new List<WorkItem>() // Initialize WorkItems
             };
@@ -86,10 +86,10 @@ namespace EmployeeWorkTrace2.Areas.Worker.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (obj.Works.WorkerId > 0)
+                if (obj.Works.UserId != null)
                 {
                     // Fetch the entire Worker object
-                    var worker = _unitOfWork.Workers.GetFirstOrDefault(u => u.WorkerId == obj.Works.WorkerId);
+                    var worker = _unitOfWork.Workers.GetFirstOrDefault(u => u.UserId == obj.Works.UserId);
                     if (worker != null)
                     {
                         obj.Works.WorkerName = worker.WorkerName;

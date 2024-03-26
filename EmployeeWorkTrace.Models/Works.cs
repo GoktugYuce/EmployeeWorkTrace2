@@ -39,8 +39,8 @@ namespace EmployeeWorkTrace.Models
         }
         public string? Description { get; set; }
 
-        public int WorkerId { get; set; }
-        [ForeignKey("WorkerId")]
+        public string UserId { get; set; }
+        [ForeignKey("UserId")]
         [ValidateNever]
         public Workers Workers { get; set; }
         public ICollection<WorkItem> WorkItems { get; set; }

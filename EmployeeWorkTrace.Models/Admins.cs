@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace EmployeeWorkTrace.Models
 {
-    public class Workers
+    public class Admins
     {
         [Key]
         public string UserId { get; set; }
-        public string WorkerName { get; set; }
+        public string AdminName { get; set; }
+        public string? Title { get; set; }
         public DateTime? CreateDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
-        public string? Title { get; set; }
-
     }
+
 }
