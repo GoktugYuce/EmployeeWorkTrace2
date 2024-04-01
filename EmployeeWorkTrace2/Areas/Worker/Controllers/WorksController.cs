@@ -5,6 +5,7 @@ using EmployeeWorkTrace.Models.ViewModels;
 using EmployeeWorkTrace.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -17,10 +18,15 @@ namespace EmployeeWorkTrace2.Areas.Worker.Controllers
     {
         public readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public WorksController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly DataContext _db;
+
+        public WorksController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment, DataContext db, UserManager<IdentityUser> userManager)
         {
             _unitOfWork = unitOfWork;
             _webHostEnvironment = webHostEnvironment;
+            _userManager = userManager;
+            _db = db;
         }
         public IActionResult Works()
         {
@@ -154,11 +160,21 @@ namespace EmployeeWorkTrace2.Areas.Worker.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll() 
+        public IActionResult GetAll(bool myWorks = false)
         {
-            List<Works> objWorksList = _unitOfWork.Works.GetAll().ToList();
+            var worksQuery = _unitOfWork.Works.GetAll();
+
+            if (myWorks)
+            {
+                var userId = _userManager.GetUserId(User);
+                worksQuery = worksQuery.Where(w => w.UserId == userId);
+            }
+
+            var objWorksList = worksQuery.ToList();
             return Json(new { data = objWorksList });
         }
+
+
 
     }
 }
