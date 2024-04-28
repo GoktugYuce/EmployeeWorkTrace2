@@ -45,5 +45,6 @@ namespace EmployeeWorkTrace.Models
         public Workers Workers { get; set; }
         public ICollection<WorkItem> WorkItems { get; set; }
         public WorkState WorkState { get; set; } = WorkState.StartWork; // Default to 'StartWork'
+        public ICollection<DiscussionMessage>? DiscussionMessages { get; set; }
     }
 }
