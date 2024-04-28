@@ -12,7 +12,8 @@ namespace EmployeeWorkTrace.DataAccess.Repository.IRepository
     public interface IWorksRepository : IRepository<Works>
     {
         void Update(Works obj);
-
+        IQueryable<DiscussionMessage> GetDiscussionMessages(int workId);
+        void AddDiscussionMessage(DiscussionMessage message);
         Works GetFirstOrDefault(Expression<Func<Works, bool>> filter, String? includeProperties = null);
         IEnumerable<Works> GetAll(string includeProperties = null);
     }

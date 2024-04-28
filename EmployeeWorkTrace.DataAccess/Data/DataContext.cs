@@ -15,6 +15,7 @@ namespace EmployeeWorkTrace.DataAccess.Data
         public DbSet<Workers> Workers { get; set; }
         public DbSet<Admins> Admins { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<DiscussionMessage> DiscussionMessages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

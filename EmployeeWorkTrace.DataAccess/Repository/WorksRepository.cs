@@ -44,5 +44,14 @@ namespace EmployeeWorkTrace.DataAccess.Repository
             }
             return query.ToList();
         }
+        public IQueryable<DiscussionMessage> GetDiscussionMessages(int workId)
+        {
+            return _db.DiscussionMessages.Where(m => m.WorkId == workId);
+        }
+
+        public void AddDiscussionMessage(DiscussionMessage message)
+        {
+            _db.DiscussionMessages.Add(message);
+        }
     }
 }

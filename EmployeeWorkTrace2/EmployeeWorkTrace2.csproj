@@ -7,6 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Admin\Views\Works\**" />
+    <Compile Remove="Controllers\**" />
+    <Content Remove="Areas\Admin\Views\Works\**" />
+    <Content Remove="Controllers\**" />
+    <EmbeddedResource Remove="Areas\Admin\Views\Works\**" />
+    <EmbeddedResource Remove="Controllers\**" />
+    <None Remove="Areas\Admin\Views\Works\**" />
+    <None Remove="Controllers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="JavaScriptEngineSwitcher.V8" Version="3.24.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.3" />
@@ -29,8 +40,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Views\Works\" />
-    <Folder Include="Controllers\" />
     <Folder Include="wwwroot\Uploads\" />
   </ItemGroup>
 

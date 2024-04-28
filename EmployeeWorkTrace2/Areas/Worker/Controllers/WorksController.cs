@@ -51,6 +51,35 @@ namespace EmployeeWorkTrace2.Areas.Worker.Controllers
             }
             return View(worksFromDb);
         }
+        [HttpGet]
+        public async Task<IActionResult> GetDiscussionMessages(int workId)
+        {
+            var messages = await _unitOfWork.Works
+                                  .GetDiscussionMessages(workId)
+                                  .Include(m => m.Sender) // Include the Sender
+                                  .ToListAsync();
+            return Ok(messages);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> CreateMessage(DiscussionMessage message)
+        {
+            // Get the ID of the currently logged-in user
+            var userId = _userManager.GetUserId(User);
+            var sender = await _userManager.FindByIdAsync(userId) as ApplicationUser;
+
+            // Set the SenderId on the message object
+            message.SenderId = userId;
+            message.Sender = sender;
+
+            // ... rest of your code ...
+            _unitOfWork.Works.AddDiscussionMessage(message);
+            _unitOfWork.Save();
+
+            return StatusCode(201);
+        }
+
 
         [HttpGet]
         [Authorize(Roles = SD.Role_Admin)]

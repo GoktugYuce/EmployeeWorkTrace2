@@ -50,6 +50,17 @@
                 </dd>
             </div>
         </dl>
+        <div id="discussion-board" class="mt-4">
+            <h2>Discussion</h2>
+            <div id="discussion-messages">
+            </div>
+            <hr />
+            <div id="new-message-area">
+                <textarea id="message-input" placeholder="Type your message..."></textarea>
+                <button id="send-message-btn">Send</button>
+            </div>
+        </div>
+
         <a asp-controller="Works" asp-action="Works" class="btn btn-outline-secondary mt-3">
             Back To Works
         </a>
@@ -60,6 +71,54 @@
 @section Scripts{
     <script>
         $(document).ready(function () {
+            const workId = @Model.WorkId;
+            // Load initial messages and setup updating on interval
+            fetchMessages();
+            setInterval(fetchMessages, 5000); // Update messages every 5 seconds
+
+            $('#send-message-btn').click(function () {
+                sendMessage();
+            });
+
+            function fetchMessages() {
+                $.ajax({
+                    url: '/Worker/Works/GetDiscussionMessages',
+                    type: 'GET',
+                    data: { workId: workId },
+                    success: displayMessages
+                });
+            }
+
+            function displayMessages(messages) {
+                $('#discussion-messages').empty();
+                messages.forEach(message => {
+                    let messageHtml = `
+                        <div class="message">
+                            <strong>${message.sender.name}</strong> (${message.creationDate.toLocaleString()}):
+                            <p>${message.messageText}</p>
+                        </div>
+                    `;
+                    $('#discussion-messages').append(messageHtml);
+                    // Scroll to the bottom of the discussion board after adding message
+                    $('#discussion-board').scrollTop($('#discussion-board')[0].scrollHeight);
+                });
+            }
+
+            function sendMessage() {
+                let messageText = $('#message-input').val();
+
+                $.ajax({
+                    url: '/Worker/Works/CreateMessage',
+                    type: 'POST',
+                    data: { workId: workId, messageText: messageText },
+                    success: function () {
+                        $('#message-input').val(''); // Clear the input field
+                    },
+                    error: function () {
+                        alert('An error occurred while sending the message.');
+                    }
+                });
+            }
             $('#workStateButton').click(function () {
                 let currentState = $(this).text();
                 let workId = @Model.WorkId; // Retrieve the Work ID
