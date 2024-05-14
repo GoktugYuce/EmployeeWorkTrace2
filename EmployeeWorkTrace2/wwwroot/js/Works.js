@@ -2,10 +2,10 @@
 
 $(document).ready(function () {
     if (window.location.pathname.toLowerCase().includes('/myworks')) {
-        // We are on the "My Works" page
+        
         loadDataTableWithFilter();
     } else {
-        // We are on any other works page
+        
         loadDataTable();
     }
 });
