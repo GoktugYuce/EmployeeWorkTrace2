@@ -1,6 +1,6 @@
 ﻿@{
-    Layout = "_Layout";  // Tell your view to use _Layout.cshtml
-    ViewData["Title"] = "My Work View"; // Optionally set a page title
+    Layout = "_Layout";
+    ViewData["Title"] = "My Work View";
 }
 
 @model Works
@@ -112,7 +112,7 @@
                     type: 'POST',
                     data: { workId: workId, messageText: messageText },
                     success: function () {
-                        $('#message-input').val(''); // Clear the input field
+                        $('#message-input').val('');
                     },
                     error: function () {
                         alert('An error occurred while sending the message.');

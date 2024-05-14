@@ -56,7 +56,7 @@ namespace EmployeeWorkTrace2.Areas.Worker.Controllers
         {
             var messages = await _unitOfWork.Works
                                   .GetDiscussionMessages(workId)
-                                  .Include(m => m.Sender) // Include the Sender
+                                  .Include(m => m.Sender)
                                   .ToListAsync();
             return Ok(messages);
         }
@@ -73,7 +73,7 @@ namespace EmployeeWorkTrace2.Areas.Worker.Controllers
             message.SenderId = userId;
             message.Sender = sender;
 
-            // ... rest of your code ...
+            
             _unitOfWork.Works.AddDiscussionMessage(message);
             _unitOfWork.Save();
 
@@ -147,13 +147,13 @@ namespace EmployeeWorkTrace2.Areas.Worker.Controllers
                                 file.CopyTo(fileStream);
                             }
 
-                            // ... (Set other WorkItem properties, potentially from form fields) ...
+                            
 
                             workItems.Add(new WorkItem
                             {
-                                ItemName = file.FileName, // Or extract from form if needed
+                                ItemName = file.FileName,
                                 CreationDate = DateTime.Now,
-                                Work = obj.Works // Associate the WorkItem with the Work
+                                Work = obj.Works
                             });
                         }
                     }

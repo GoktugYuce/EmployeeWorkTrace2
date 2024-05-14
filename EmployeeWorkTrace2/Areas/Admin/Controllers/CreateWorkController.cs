@@ -22,8 +22,7 @@ namespace EmployeeWorkTrace2.Areas.Admin.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
         public IActionResult Create()
-        {
-            //List<Works> objWorksList = _unitOfWork.Works.GetAll().ToList();
+        {           
 
             WorksVM worksVM = new()
             {
@@ -49,7 +48,7 @@ namespace EmployeeWorkTrace2.Areas.Admin.Controllers
             {
                 if (obj.Works.UserId != null)
                 {
-                    // Fetch the entire Worker object
+                    
                     var worker = _unitOfWork.Workers.GetFirstOrDefault(u => u.UserId == obj.Works.UserId);
                     if (worker != null)
                     {
@@ -81,7 +80,7 @@ namespace EmployeeWorkTrace2.Areas.Admin.Controllers
                 TempData["success"] = "Work Created Successfully!";
                 return RedirectToAction("Create");
             }
-            return View(obj); // Changed from the default return
+            return View(obj);
         }
 
     }
